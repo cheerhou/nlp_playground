@@ -1,0 +1,44 @@
+import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+
+
+# load data
+data = load_breast_cancer()
+
+# get the type of 'data'
+type(data)
+
+# get attributes of 'data'
+data.keys()
+
+# get columns and rows
+# 569 samples and 30 features
+data.data.shape
+
+# get target
+data.target
+
+# get feature names
+data.feature_names
+
+
+# split data into train data and test data
+x_train, x_test, y_train, y_test = train_test_split(data.data, data.target, test_size=0.33)
+
+# train data
+model = RandomForestClassifier()
+model.fit(x_train, y_train)
+
+# evaluate model
+model.score(x_train, y_train)
+model.score(x_test, y_test)
+
+# make predictions
+predictions = model.predict(x_test)
+print(predictions)
+
+# manually check the accuracy of prediction
+N = len(y_test)
+accuracy = np.sum(predictions==y_test) / N
